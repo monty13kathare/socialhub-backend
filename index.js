@@ -10,10 +10,9 @@ import communityPostRoutes from "./routes/communityPost.routes.js";
 import communityRoutes from "./routes/community.routes.js";
 
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ path: "config/config.env" });
+dotenv.config({ path: "config/config.env" });
 }
 
-dotenv.config();
 
 
 
@@ -52,8 +51,6 @@ const corsOptions = {
 // Apply CORS middleware to handle cross-origin requests
 app.use(cors(corsOptions));
 
-// Preflight requests handling
-app.options("*", cors(corsOptions));
 
 // ------------------------
 // Middleware
