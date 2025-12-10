@@ -1,19 +1,21 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import connectDB from "./config/db.js";
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
-import authRoutes from "./routes/auth.routes.js";
-import userRoutes from "./routes/user.routes.js";
-import userPostRoutes from "./routes/userPost.routes.js";
-import communityPostRoutes from "./routes/communityPost.routes.js";
-import communityRoutes from "./routes/community.routes.js";
+const connectDB = require("./config/db.js");
+
+const authRoutes = require("./routes/auth.routes.js");
+const userRoutes = require("./routes/user.routes.js");
+const userPostRoutes = require("./routes/userPost.routes.js");
+const communityPostRoutes = require("./routes/communityPost.routes.js");
+const communityRoutes = require("./routes/community.routes.js");
+
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: "config/config.env" });
 }
 
-// dotenv.config();
+dotenv.config();
 
 
 
