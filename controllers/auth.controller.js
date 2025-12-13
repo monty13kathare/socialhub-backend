@@ -153,7 +153,6 @@ export const socialLogin = async (req, res) => {
         name,
         email,
         avatar: uploadedAvatarUrl,
-        password: null,
         isVerified: true,
       });
     } else {
