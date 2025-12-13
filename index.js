@@ -20,7 +20,8 @@ const PORT = process.env.PORT || 5000;
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://social-hub-seven.vercel.app"
+    "https://social-hub-pearl.vercel.app",
+    "https://socialhub-frontend-one.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
@@ -29,10 +30,19 @@ const corsOptions = {
 
 app.use(cors(corsOptions));    // 👈 USE CORS OPTIONS
 
+// Fix COOP blocking window.closed,
+// needed for OAuth popup, login popup, etc.
+// ------------------------
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  res.setHeader("Cross-Origin-Embedder-Policy", "unsafe-none");
+  next();
+});
+
 // ------------------------
 // Middleware
 // ------------------------
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ------------------------

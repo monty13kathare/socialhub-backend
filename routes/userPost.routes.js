@@ -7,7 +7,9 @@ import {
   deleteAllUserPosts,
   deleteComment,
   deletePost,
+  deleteReply,
   getAllPosts,
+  getPostById,
   likeComment,
   sharePost,
   toggleLike,
@@ -37,9 +39,14 @@ router.delete("/:postId/comment/:commentId", authMiddleware, deleteComment);
 router.put("/:id/like", authMiddleware, toggleLike);
 
 router.post("/:postId/comments/:commentId/reply", authMiddleware, addReply);
+router.delete("/:postId/comments/:commentId/deleteReply", authMiddleware, deleteReply);
+
 router.put("/:postId/comments/:commentId/like", authMiddleware, likeComment);
 
 router.post("/:postId/vote", authMiddleware, votePoll);
+
+router.get("/:postId", authMiddleware, getPostById);
+
 
 
 

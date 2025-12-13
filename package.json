@@ -1,15 +1,15 @@
 {
-  "name": "social-backend",
+  "name": "socialhub-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
     "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Arvind Kathare",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.3",

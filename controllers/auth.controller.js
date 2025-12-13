@@ -73,8 +73,6 @@ export const verifyOtp = async (req, res) => {
   }
 };
 
-
-
 export const completeProfile = async (req, res) => {
   try {
     const { email, username, bio, bannerColor } = req.body;
