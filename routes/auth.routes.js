@@ -4,6 +4,7 @@ import {
   verifyOtp,
   login,
   completeProfile,
+  socialLogin,
 } from "../controllers/auth.controller.js";
 import multer from "multer";
 
@@ -14,6 +15,7 @@ const upload = multer({ storage });
 router.post("/register", register);
 router.post("/verify-otp", verifyOtp);
 router.post("/login", login);
+router.post("/social-login", socialLogin);
 router.post("/complete-profile", upload.single("avatar"), completeProfile);
 
 export default router;

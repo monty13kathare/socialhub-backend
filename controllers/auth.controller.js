@@ -123,3 +123,61 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Server Error", error });
   }
 };
+
+export const socialLogin = async (req, res) => {
+  try {
+    const { email, name, avatar } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    let user = await User.findOne({ email });
+    let uploadedAvatarUrl = avatar;
+
+    // 🔥 If avatar exists, upload to Cloudinary (only for new users OR if avatar changed)
+    if (avatar) {
+      try {
+        const uploadRes = await cloudinary.uploader.upload(avatar, {
+          folder: "avatars",
+        });
+        uploadedAvatarUrl = uploadRes.secure_url;
+      } catch (err) {
+        console.error("Cloudinary Upload Failed:", err);
+      }
+    }
+
+    // 2️⃣ If user does NOT exist → Create new user
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        avatar: uploadedAvatarUrl,
+        password: null,
+        isVerified: true,
+      });
+    } else {
+      // 🆕 Optional: Update avatar if changed
+      if (uploadedAvatarUrl && user.avatar !== uploadedAvatarUrl) {
+        user.avatar = uploadedAvatarUrl;
+        await user.save();
+      }
+    }
+
+    // 3️⃣ Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    res.json({
+      message: "Login successful",
+      token,
+      user,
+    });
+
+  } catch (error) {
+    console.error("Social Login Error:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
